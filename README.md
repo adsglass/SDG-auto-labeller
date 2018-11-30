@@ -15,7 +15,7 @@ Descriptions and titles of each of the 17 Sustainable Development Goals were tok
 Basic descriptions and titles of over 3,000 were also tokenized and transformed into TF-IDF vectors using the same vocab / n-grams from the SDG tokenization process.
 
 A feature matrix was created containing the following features:
-- Cosine similarity matrix of each review paper with each SDG
+- Cosine similarity matrix of review papers with each SDG;
 - SDG labels with the highest TF-IDF values corresponding to the same keyword in the academic paper (e.g. if "Aid" had the highest TF-IDF score in review paper 1, the feature extraction function would find the SDG where "Aid" has the highest TF-IDF value). 
 
 The feature matrix was divided into a training and holdout set.
@@ -54,7 +54,7 @@ $ python SDG_auto_labeller.py
 
 To run the code, there are a number of dependencies. A Python 3 Anaconda distribution should cover most of the required libraries.
 
-You may need to pip install the following:
+You may need to pip install some of the following libraries:
 
 ```
 NLTK
