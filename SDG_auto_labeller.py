@@ -8,6 +8,7 @@ from sklearn.metrics.pairwise import cosine_similarity
 from sklearn import preprocessing
 from scipy import stats
 import os
+os.environ['KMP_DUPLICATE_LIB_OK']='True'
 
 def clean_merge_columns(df, columns=["title_name", "findings_outcome", "findings_outcomes_descrip"]):
 
@@ -160,7 +161,9 @@ def predict_from_model(model_file, X, class_encoder, threshold=0.80):
     final_df["final_label"] = final_df.apply(lambda x: x["Predicted"] if x["max_proba"] > threshold else "NA", axis=1)
     
     final_df["Predicted"] = class_encoder.inverse_transform(final_df["Predicted"].astype('int'))
-    final_df["final_label"] = class_encoder.inverse_transform(final_df["final_label"].astype('int'))
+    
+    mask = final_df["final_label"] != "NA"
+    final_df.loc[mask, "final_label"] = class_encoder.inverse_transform(final_df[mask]["final_label"].astype('int')).copy()
     
     final_df.to_csv("SDG_labels.csv")
     print("Model saved as 'SDG_labels.csv'")
